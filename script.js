@@ -5,11 +5,11 @@
     3 - azul
 */
 
-
 // Inicialização de variáveis
 let order = [];
 let clickedOrder = [];
 let score = 0;
+let interval = 500;
 
 // Recebimento do texto que aprenseta o placar
 const scoreText = document.querySelector('.score-text');
@@ -19,6 +19,22 @@ const green = document.querySelector('.green');
 const red = document.querySelector('.red');
 const yellow = document.querySelector('.yellow');
 const blue = document.querySelector('.blue');
+
+
+const disable = e => {
+    e.stopPropagation();
+    e.preventDefault();
+}
+
+const disableClick = () =>{
+    document.addEventListener("click", disable, true);
+}
+
+const enableClick = () =>{
+    setTimeout(() => {
+        document.removeEventListener("click", disable, true);
+    }, interval*order.length);
+}
 
 // Cria ordem aleatória de cores
 const shuffleOrder = () =>{
@@ -32,17 +48,21 @@ const shuffleOrder = () =>{
     order[order.length] = colorOrder;
     clickedOrder = [];
 
+    
+    disableClick();
+    
     for(let i in order){
         let elementColor = createColorElement(order[i]);
         lightColor(elementColor, Number(i) + 1);
     }
+    enableClick();
 }
 
 // Acende a próxima cor
 const lightColor = (element, number) =>{
-    let interval = 500;
     number = number * interval;
     setTimeout(() => {
+
         element.classList.add('selected');
     }, number-(interval/2));
     setTimeout(() => {
