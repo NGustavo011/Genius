@@ -75,7 +75,7 @@ const checkOrder = () =>{
     for(let i in clickedOrder){
         if(clickedOrder[i] !== order[i]){
             gameOver();
-            break
+            return;
         }
     }
     if(clickedOrder.length == order.length){
@@ -111,8 +111,9 @@ const createColorElement = color =>{
 
 // Função para iniciar o jogo
 const playGame = () =>{
-    alert('Bem vindo ao Genius! Iniciando novo jogo!');
-    nextLevel();
+    Swal.fire({title:"Bem vindo ao Genius! Iniciando novo jogo!"}).then(()=>{
+        nextLevel();
+    })
 }
 
 // Função para criar o próximo nível do jogo
@@ -123,12 +124,13 @@ const nextLevel = () =>{
 
 // Função para game over
 const gameOver = () =>{
-    alert(`Pontuação: ${score}\nVocê perdeu o jogo!\nClique em OK para iniciar um novo jogo`);
-    order = [];
-    clickedOrder = [];
-    score = 0;
-    scoreText.innerHTML = `SCORE: ${score}`;
-    playGame();
+    Swal.fire({icon: 'error', title:`Pontuação: ${score}\nVocê perdeu o jogo!\nClique em OK para iniciar um novo jogo`}).then(()=>{
+        order = [];
+        clickedOrder = [];
+        score = 0;
+        scoreText.innerHTML = `SCORE: ${score}`;
+        playGame();
+    })  
 }
 
 // Acompanhamento dos clicks nos elementos de cor
