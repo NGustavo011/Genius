@@ -1,7 +1,3 @@
-let order = [];
-let clickedOrder = [];
-let score = 0;
-
 /*
     0 - verde
     1 - vermelho
@@ -9,6 +5,16 @@ let score = 0;
     3 - azul
 */
 
+
+// Inicialização de variáveis
+let order = [];
+let clickedOrder = [];
+let score = 0;
+
+// Recebimento do texto que aprenseta o placar
+const scoreText = document.querySelector('.score-text');
+
+// Obtenção dos elementos cor pela classe
 const green = document.querySelector('.green');
 const red = document.querySelector('.red');
 const yellow = document.querySelector('.yellow');
@@ -34,10 +40,11 @@ const shuffleOrder = () =>{
 
 // Acende a próxima cor
 const lightColor = (element, number) =>{
-    number = number * 500;
+    let interval = 500;
+    number = number * interval;
     setTimeout(() => {
         element.classList.add('selected');
-    }, number-250);
+    }, number-(interval/2));
     setTimeout(() => {
         element.classList.remove('selected');
     }, number);
@@ -52,7 +59,7 @@ const checkOrder = () =>{
         }
     }
     if(clickedOrder.length == order.length){
-        alert(`Pontuação: ${score}\nVocê acertou! Iniciando o próximo nível`)
+        score++;
         nextLevel();
     }    
 }
@@ -90,7 +97,7 @@ const playGame = () =>{
 
 // Função para criar o próximo nível do jogo
 const nextLevel = () =>{
-    score++;
+    scoreText.innerHTML = `SCORE: ${score}`;
     shuffleOrder();
 }
 
@@ -100,7 +107,7 @@ const gameOver = () =>{
     order = [];
     clickedOrder = [];
     score = 0;
-
+    scoreText.innerHTML = `SCORE: ${score}`;
     playGame();
 }
 
@@ -109,6 +116,9 @@ green.onclick = () => click(0);
 red.onclick = () => click(1);
 yellow.onclick = () => click(2);
 blue.onclick= () => click(3);
+
+// Inicializa placar de score
+scoreText.innerHTML = `SCORE: ${score}`;
 
 // Inicia o jogo quando o site carregar pela primeira vez
 playGame();
