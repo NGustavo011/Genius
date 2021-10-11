@@ -15,6 +15,10 @@ As adições/alterações feitas em relação ao projeto desenvolvido pela Gabri
 - Adição do background animado.
 - Adição do SweetAlert2 para a exibição de alertas.
 
+#### GitHub Pages 📄
+
+https://ngustavo011.github.io/Genius/
+
 #### Sobre mim :man_student:
 
 https://github.com/NGustavo011/sobre-mim
